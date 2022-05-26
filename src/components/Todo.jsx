@@ -3,7 +3,7 @@ import axios from "axios";
 
 const Todo = () => {
   const [todos, setTodos] = useState([]);
-  // const [newTodo,setNewTodo]=useState('')
+  const [newTodo,setNewTodo]=useState('')
   const [page, setPage] = useState(1);
   const [totalCount, setTotal]=useState(0)
   const [limit,setLimit] = useState(5)
@@ -20,30 +20,37 @@ const Todo = () => {
     };
     getTodo();
   }, [page,limit]);
-  //     const handleChange = (e)=>{
-  //     //    console.log(e.target.value)
-  //            setNewTodo(e.target.value)
-  //    }
+      const handleChange = (e)=>{
+        //  console.log(e.target.value)
+             setNewTodo(e.target.value)
+     }
 
-    //  const saveInfo= ()=>{
-    //   fetch("http://localhost:3004/userData", {
-    //       method: "POST",
-    //       headers: {
-    //           "content-type": "application/json"
-    //       },
-    //       body: JSON.stringify({
-    //           text: newTodo,
-    //           isCompleted: false
-    //       })
-    //   }).then(res => res.json()).then(data => {
-    //       console.log(data)
-    //        setTodos([...todos,data]);
-    //        setNewTodo("")
-    //   })
-    //  }
+     const  saveInfo= ()=>{
+      fetch("http://localhost:3004/userData", {
+          method: "POST",
+          headers: {
+              "content-type": "application/json"
+          },
+          body: JSON.stringify({
+              text: newTodo,
+              isCompleted: false
+          })
+      }).then(res => res.json()).then(data => {
+          console.log(data)
+           setTodos([...todos,data]);
+           setNewTodo("")
+      })
+     }
 
   return (
     <div>
+
+    <div>
+      <input type="text" onChange={handleChange} />
+      <button onClick={saveInfo}>+</button>
+    </div>
+
+
       <button disabled ={page<=1}
         onClick={() =>  setPage(page - 1)}>Previous</button>
 
